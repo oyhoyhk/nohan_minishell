@@ -1,29 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/16 12:36:44 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/01/16 16:23:36 by hyungnoh         ###   ########.fr       */
+/*   Created: 2022/08/30 21:59:15 by hyungnoh          #+#    #+#             */
+/*   Updated: 2023/01/16 15:19:17 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(int ac, char **av, char **envp)
+int	ft_strncmp(const char *s1, const char *s2, unsigned int n)
 {
-	t_pipe	pipe;
+	size_t	i;
 
-	if (ac != 5)
-		perror("argument error");
-	pipe.infile = open(av[1], O_RDONLY);
-	if (pipe.infile < 0)
-		perror("infile error");
-	pipe.outfile = open(av[4], O_RDWR | O_CREAT | O_TRUNC, 0644);
-	if (pipe.outfile < 0)
-		perror("outfile error");
-	pipe.path_list = ft_split(getenv("PATH"), ':');
-	return (EXIT_SUCCESS);
+	i = 0;
+	while ((unsigned char)s1[i] && (unsigned char)s2[i] && i < n)
+	{
+		if ((unsigned char)s1[i] != (unsigned char)s2[i])
+		{
+			return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+		}
+		i++;
+	}
+	if (i < n)
+	{
+		return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+	}
+	return (0);
 }
